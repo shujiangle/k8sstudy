@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}k8s学习{% endblock %}</title>
+
+
+{% block content %}
+<table id="assets_table" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                  <th>序号</th>
+                  <th>主机IP</th>
+                  <th>环境</th>
+                  <th>平台</th>
+                  <th>主机名</th>
+                  <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="id1" class="warning">
+                  <th>1</th>
+                  <th>192.168.153.30</th>
+                  <th>本地</th>
+                  <th>centos 7</th>
+                  <th>test</th>
+                  <th>
+                      <button type="button" class="btn btn-primary">编辑</button>
+                      <button type="button" class="btn btn-danger">删除</button>
+                  </th>
+              </tr>
+              <tr id="id2" class="success"  class="center-block">
+                  <th>2</th>
+                  <th>192.168.153.31</th>
+                  <th>本地</th>
+                  <th>centos 7</th>
+                  <th>k8s-master</th>
+                  <th>
+                      <button type="button" class="btn btn-primary">编辑</button>
+                      <button type="button" class="btn btn-danger">删除</button>
+                  </th>
+              </tr>
+           </tbody>
+</table>
+
+
+{% endblock %}s
+
+{% block scriptfile %}
+  $(function () {
+    $('#assets_table').DataTable({
+      "paging": true,       <!-- 允许分页 -->
+      "lengthChange": true, <!-- 允许改变每页显示的行数 -->
+      "searching": true,    <!-- 允许内容搜索 -->
+      "ordering": true,     <!-- 允许排序 -->
+      "info": true,         <!-- 显示信息 -->
+      "autoWidth": false    <!-- 固定宽度 -->
+    });
+  });
+{% endblock %}

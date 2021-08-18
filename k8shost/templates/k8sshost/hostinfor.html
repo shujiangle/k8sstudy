@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}k8s学习{% endblock %}</title>
+
+
+{% block content %}
+<table id="assets_table" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                  <th>NAME</th>
+                  <th>STATUS</th>
+                  <th>VERSION</th>
+              </tr>
+            </thead>
+            <tbody>
+{#              <tr id="id1" class="warning">#}
+{#                  <th>1</th>#}
+{#                  <th>192.168.153.30</th>#}
+{#                  <th>本地</th>#}
+{#              </tr>#}
+{#              <tr id="id2" class="success"  class="center-block">#}
+{#                  <th>2</th>#}
+{#                  <th>192.168.153.31</th>#}
+{#                  <th>本地</th>#}
+{#              </tr>#}
+                {% for NAME,STATUS,VERSION in nodes %}
+                    <tr class="warning">
+{#                        <th>{{ item.metadata.name }}</th>#}
+{#                        <th>Ready</th>#}
+{#                        <th>{{ item.status.conditions[3]["type"] }}</th>#}
+{#                        <th>{{ item.status.nodeInfo.kubeProxyVersion }}</th>#}
+                        <th>{{  NAME }}</th>
+                        <th>{{  STATUS }}</th>
+                        <th>{{  VERSION }}</th>
+                    </tr>
+                {% endfor %}
+           </tbody>
+</table>
+
+
+{% endblock %}s
+
+{% block scriptfile %}
+  $(function () {
+    $('#assets_table').DataTable({
+      "paging": true,       <!-- 允许分页 -->
+      "lengthChange": true, <!-- 允许改变每页显示的行数 -->
+      "searching": true,    <!-- 允许内容搜索 -->
+      "ordering": true,     <!-- 允许排序 -->
+      "info": true,         <!-- 显示信息 -->
+      "autoWidth": false    <!-- 固定宽度 -->
+    });
+  });
+{% endblock %}
