@@ -7,31 +7,30 @@
 <table id="assets_table" class="table table-bordered table-striped">
             <thead>
               <tr>
-                  <th>NAME</th>
-                  <th>STATUS</th>
-                  <th>VERSION</th>
+                  <td>序号</td>
+                  <td>NAME</td>
+                  <td>STATUS</td>
+                  <td>VERSION</td>
               </tr>
             </thead>
             <tbody>
-{#              <tr id="id1" class="warning">#}
-{#                  <th>1</th>#}
-{#                  <th>192.168.153.30</th>#}
-{#                  <th>本地</th>#}
-{#              </tr>#}
-{#              <tr id="id2" class="success"  class="center-block">#}
-{#                  <th>2</th>#}
-{#                  <th>192.168.153.31</th>#}
-{#                  <th>本地</th>#}
-{#              </tr>#}
                 {% for NAME,STATUS,VERSION in nodes %}
-                    <tr class="warning">
-{#                        <th>{{ item.metadata.name }}</th>#}
-{#                        <th>Ready</th>#}
-{#                        <th>{{ item.status.conditions[3]["type"] }}</th>#}
-{#                        <th>{{ item.status.nodeInfo.kubeProxyVersion }}</th>#}
-                        <th>{{  NAME }}</th>
-                        <th>{{  STATUS }}</th>
-                        <th>{{  VERSION }}</th>
+                    <tr>
+                        <td>{{  forloop.counter }}</td>
+                        {% if NAME == 'master' %}
+                            <td class="text-green text-bold">{{  NAME }}</td>
+                        {% else %}
+                            <td class="text-blue text-bold">{{ NAME }}</td>
+                        {% endif %}
+
+
+                        {% if STATUS == 'KubeletReady' %}
+                            <td class="text-green text-bold">Ready</td>
+                        {% else %}
+                            <td class="text-blue text-bold">NotReady</td>
+                        {% endif %}
+
+                        <td class="text-yellow text-bold">{{  VERSION }}</td>
                     </tr>
                 {% endfor %}
            </tbody>

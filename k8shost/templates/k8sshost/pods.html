@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}pods{% endblock %}</title>
+
+
+{% block content %}
+<table id="assets_table" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                  <td>序号</td>
+                  <td>Pod_Ip</td>
+                  <td>Namespace</td>
+                  <td>Name</td>
+              </tr>
+            </thead>
+            <tbody>
+                {% for ret in rets %}
+{#                    <tr>#}
+{#                        <td>{{  forloop.counter }}</td>#}
+{#                        {% if NAME == 'master' %}#}
+{#                            <td class="text-green text-bold">{{  NAME }}</td>#}
+{#                        {% else %}#}
+{#                            <td class="text-blue text-bold">{{ NAME }}</td>#}
+{#                        {% endif %}#}
+{##}
+{##}
+{#                        {% if STATUS == 'KubeletReady' %}#}
+{#                            <td class="text-green text-bold">Ready</td>#}
+{#                        {% else %}#}
+{#                            <td class="text-blue text-bold">NotReady</td>#}
+{#                        {% endif %}#}
+{##}
+{#                        <td class="text-yellow text-bold">{{  VERSION }}</td>#}
+{#                    </tr>#}
+                      <tr>
+                            <td class="text-green text-bold">{{ forloop.counter }}</td>
+                            <td class="text-blue text-bold">{{ ret.status.pod_ip }}</td>
+                            <td class="text-yellow text-bold">{{ ret.metadata.namespace }}</td>
+                            <td class="text-green text-bold">{{ ret.metadata.name }}</td>
+                      </tr>
+                {% endfor %}
+           </tbody>
+</table>
+
+
+{% endblock %}s
+
+{% block scriptfile %}
+  $(function () {
+    $('#assets_table').DataTable({
+      "paging": true,       <!-- 允许分页 -->
+      "lengthChange": true, <!-- 允许改变每页显示的行数 -->
+      "searching": true,    <!-- 允许内容搜索 -->
+      "ordering": true,     <!-- 允许排序 -->
+      "info": true,         <!-- 显示信息 -->
+      "autoWidth": false    <!-- 固定宽度 -->
+    });
+  });
+{% endblock %}

@@ -4,55 +4,59 @@
 
 
 {% block content %}
-<table id="assets_table" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                  <th>序号</th>
-                  <th>主机IP</th>
-                  <th>环境</th>
-                  <th>平台</th>
-                  <th>主机名</th>
-                  <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr id="id1" class="warning">
-                  <th>1</th>
-                  <th>192.168.153.30</th>
-                  <th>本地</th>
-                  <th>centos 7</th>
-                  <th>test</th>
-                  <th>
-                      <button type="button" class="btn btn-primary">编辑</button>
-                      <button type="button" class="btn btn-danger">删除</button>
-                  </th>
-              </tr>
-              <tr id="id2" class="success"  class="center-block">
-                  <th>2</th>
-                  <th>192.168.153.31</th>
-                  <th>本地</th>
-                  <th>centos 7</th>
-                  <th>k8s-master</th>
-                  <th>
-                      <button type="button" class="btn btn-primary">编辑</button>
-                      <button type="button" class="btn btn-danger">删除</button>
-                  </th>
-              </tr>
-           </tbody>
-</table>
+<section class="content">
+    <div class=row>
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">资产总表<small>(不含软件)</small></h3>
+                </div>
+                <div class="box-body">
+                    <table id="asset_table" class="table table-boredred table-striped">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>资产类型</th>
+                                <th>子类型</th>
+                                <th>资产名称</th>
+                                <th>SN</th>
+                                <th>业务线</th>
+                                <th>状态</th>
+                                <th>机房</th>
+                                <th>更新日期</th>
+                                <th>标签</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for x,y,z in nodes %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
 
+                                </tr>
+                                {% empty %}
+                                <tr> 没有数据 </tr>
+                            {% endfor %}
+                        </tbody>
 
-{% endblock %}s
+                        <tfoot>
+                        <tr>
+                            <th>序号</th>
+                            <th>资产类型</th>
+                            <th>子类型</th>
+                            <th>资产名称</th>
+                            <th>SN</th>
+                            <th>业务线</th>
+                            <th>状态</th>
+                            <th>机房</th>
+                            <th>更新日期</th>
+                            <th>标签</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-{% block scriptfile %}
-  $(function () {
-    $('#assets_table').DataTable({
-      "paging": true,       <!-- 允许分页 -->
-      "lengthChange": true, <!-- 允许改变每页显示的行数 -->
-      "searching": true,    <!-- 允许内容搜索 -->
-      "ordering": true,     <!-- 允许排序 -->
-      "info": true,         <!-- 显示信息 -->
-      "autoWidth": false    <!-- 固定宽度 -->
-    });
-  });
+</section>
 {% endblock %}
