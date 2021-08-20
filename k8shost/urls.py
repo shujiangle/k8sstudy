@@ -5,5 +5,6 @@ app_name = 'k8shost'
 
 urlpatterns = [
     path('', views.hostinfor, name='hostinfor'),
-    path('pods', views.pods, name='pods')
+    path('pods/', views.pods, name='pods'),
+    path('dashboard/', views.dashboard, name='dashboard')
 ]

@@ -28,14 +28,14 @@ def hostinfor(request):
         node3.append(node.status.nodeInfo.kubeProxyVersion)
         # nodes.append(node)
         # print(node)
-        print(
-            "%s\t%s\t\t%s\n"
-            % (
-                node.metadata.name,
-                node.status.conditions[3]["type"],
-                node.status.nodeInfo.kubeProxyVersion,
-            )
-        )
+        # print(
+        #     "%s\t%s\t\t%s\n"
+        #     % (
+        #         node.metadata.name,
+        #         node.status.conditions[3]["type"],
+        #         node.status.nodeInfo.kubeProxyVersion,
+        #     )
+        # )
     nodes = zip(node1, node2, node3)
     return render(request, 'k8sshost/hostinfor.html', locals())
 
@@ -45,10 +45,23 @@ def pods(request):
     config.load_kube_config()
 
     v1 = client.CoreV1Api()
-    print("Listing pods with their IPs:")
+    # print("Listing pods with their IPs:")
     ret = v1.list_pod_for_all_namespaces(watch=False)
     rets = ret.items
     # for i in ret.items:
     #     print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
 
     return render(request, 'k8sshost/pods.html', locals())
+
+
+def dashboard(request):
+    return render(request, 'k8sshost/dashboard.html', locals())
+
+
+
+
+
+
+
+
+

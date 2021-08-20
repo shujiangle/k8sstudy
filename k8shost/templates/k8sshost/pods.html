@@ -8,9 +8,11 @@
             <thead>
               <tr>
                   <td>序号</td>
-                  <td>Pod_Ip</td>
-                  <td>Namespace</td>
-                  <td>Name</td>
+                  <td>NAMESPACE</td>
+                  <td>NAME</td>
+                  <td>STATUS</td>
+                  <td>IP</td>
+                  <td>NODE</td>
               </tr>
             </thead>
             <tbody>
@@ -34,9 +36,15 @@
 {#                    </tr>#}
                       <tr>
                             <td class="text-green text-bold">{{ forloop.counter }}</td>
-                            <td class="text-blue text-bold">{{ ret.status.pod_ip }}</td>
-                            <td class="text-yellow text-bold">{{ ret.metadata.namespace }}</td>
-                            <td class="text-green text-bold">{{ ret.metadata.name }}</td>
+                            <td class="text-blue text-bold">{{ ret.metadata.namespace }}</td>
+                            <td class="text-yellow text-bold">{{ ret.metadata.name }}</td>
+                            {% if ret.status.phase == 'Running' %}
+                                <td class="text-green text-bold">{{ ret.status.phase }}</td>
+                            {% else %}
+                                <td class="text-red text-bold">{{ ret.status.phase }}</td>
+                            {% endif %}
+                            <td class="text-yellow text-bold">{{ ret.status.pod_ip }}</td>
+                            <td class="text-orange text-bold">{{ ret.status.host_ip }}</td>
                       </tr>
                 {% endfor %}
            </tbody>

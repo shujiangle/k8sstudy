@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}dashboard{% endblock %}</title>
+
+
+{% block content %}
+<table id="assets_table" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                  <td>序号</td>
+                  <td>NAMESPACE</td>
+                  <td>NAME</td>
+                  <td>STATUS</td>
+                  <td>IP</td>
+                  <td>NODE</td>
+              </tr>
+            </thead>
+            <tbody>
+                {% for ret in rets %}
+                      <tr>
+                            <td class="text-green text-bold">{{ forloop.counter }}</td>
+                            <td class="text-blue text-bold">{{ ret.metadata.namespace }}</td>
+                            <td class="text-yellow text-bold">{{ ret.metadata.name }}</td>
+                            {% if ret.status.phase == 'Running' %}
+                                <td class="text-green text-bold">{{ ret.status.phase }}</td>
+                            {% else %}
+                                <td class="text-red text-bold">{{ ret.status.phase }}</td>
+                            {% endif %}
+                            <td class="text-yellow text-bold">{{ ret.status.pod_ip }}</td>
+                            <td class="text-orange text-bold">{{ ret.status.host_ip }}</td>
+                      </tr>
+                {% endfor %}
+           </tbody>
+</table>
+
+
+{% endblock %}s
+
+{% block scriptfile %}
+  $(function () {
+    $('#assets_table').DataTable({
+      "paging": true,       <!-- 允许分页 -->
+      "lengthChange": true, <!-- 允许改变每页显示的行数 -->
+      "searching": true,    <!-- 允许内容搜索 -->
+      "ordering": true,     <!-- 允许排序 -->
+      "info": true,         <!-- 显示信息 -->
+      "autoWidth": false    <!-- 固定宽度 -->
+    });
+  });
+{% endblock %}
